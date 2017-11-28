@@ -48,6 +48,12 @@ AddEventHandler('esx_jail:hasEnteredMarker', function(zone)
         CurrentActionData = {}
     end
 
+    if zone == 'Shower' then
+        CurrentAction     = 'shower'
+        CurrentActionMsg  = _U('take_shower')
+        CurrentActionData = {}
+    end
+
 end)
 
 AddEventHandler('esx_jail:hasExitedMarker', function(zone)
@@ -131,6 +137,20 @@ Citizen.CreateThread(function()
                 if CurrentAction == 'cells_menu' then
                     --print(Cells.debug)
                     Cells.ShowMenuOpenClose()
+                end
+
+                if CurrentAction == 'shower' then
+                    --print(Cells.debug)
+                    QTE.Start(
+                        {'up', 'left', 'right', 'down'},
+                        3000,
+                        2000,
+                        "mini@strip_club@private_dance@part1",
+                        "priv_dance_p1",
+                        ESX.ShowNotification("Succes"),
+                        ESX.ShowNotification("Fail"),
+                        ESX.ShowNotification("Finish")
+                    )
                 end
 
                 CurrentAction = nil

@@ -8,10 +8,11 @@ Locales['fr'] = {
   ['cells'] = 'cellules',
 
   -- Hints
-  ['cells_menu'] = 'Appuyez sur ~INPUT_CONTEXT~ pour gérer les portes des cellules',
+  ['cells_menu'] = 'appuyez sur ~INPUT_CONTEXT~ pour gérer les portes des cellules',
+  ['take_shower'] = 'appuyez sur ~INPUT_CONTEXT~ pour prendre une douche',
 
   -- MISC
-  ['blip_jail'] = 'Prison',
+  ['blip_jail'] = 'prison',
 
 
 }

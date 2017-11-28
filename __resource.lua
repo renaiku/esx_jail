@@ -13,6 +13,7 @@ server_scripts {
 }
 
 client_scripts {
+  '@qte/qte.lua',
   '@es_extended/locale.lua',
   'locales/fr.lua',
   'config.lua',
