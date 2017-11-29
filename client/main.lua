@@ -85,7 +85,11 @@ Citizen.CreateThread(function()
         local coords = GetEntityCoords(GetPlayerPed(-1))
         for k,v in pairs(Config.Zones) do
             if(v.Type ~= -1 and GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < Config.DrawDistance) then
+
+
                 if PlayerData.job ~= nil and PlayerData.job.name == 'police' then
+                    DrawMarker(v.Type, v.Pos.x, v.Pos.y, v.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, false, false, false)
+                elseif k ~= 'PC' then
                     DrawMarker(v.Type, v.Pos.x, v.Pos.y, v.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, false, false, false)
                 end
             end
@@ -135,21 +139,27 @@ Citizen.CreateThread(function()
             if IsControlJustReleased(0, Keys['E']) then
 
                 if CurrentAction == 'cells_menu' then
-                    --print(Cells.debug)
-                    Cells.ShowMenuOpenClose()
+                    ShowMenuOpenClose()
                 end
 
                 if CurrentAction == 'shower' then
-                    --print(Cells.debug)
-                    QTE.Start(
+                    TriggerServerEvent('esx:clientLog', 'E RELEASED')
+                    TriggerEvent('qte:start',
                         {'up', 'left', 'right', 'down'},
                         3000,
                         2000,
                         "mini@strip_club@private_dance@part1",
                         "priv_dance_p1",
-                        ESX.ShowNotification("Succes"),
-                        ESX.ShowNotification("Fail"),
-                        ESX.ShowNotification("Finish")
+                        function()
+                            ESX.ShowNotification("Succes")
+                        end,
+                        function()
+                            ESX.ShowNotification("Fail")
+                            TriggerEvent('qte:stop')
+                        end,
+                        function()
+                            ESX.ShowNotification("Finish")
+                        end
                     )
                 end
 

@@ -1,68 +1,28 @@
-Cells = {}
 
-Cells.debug = 'test'
+function ShowMenuOpenCloseCells()
 
-Cells.ShowMenuOpenClose = function()
+    ESX.TriggerServerCallback("esx_jail:getCellsState", function(cells)
 
-    local elements = {}
+        local _cells = {}
 
-    table.insert(elements, {label = _U('open_all'),   value = 'open_all'})
-    table.insert(elements, {label = _U('close_all'),  value = 'close_all'})
-    table.insert(elements, {label = _U('floor1'),     value = 'floor1'})
-    table.insert(elements, {label = _U('floor2'),     value = 'floor2'})
-
-    ESX.UI.Menu.Open(
-        'default', GetCurrentResourceName(), 'cells',
-        {
-            title = _U('cells'),
-            align = 'top-left',
-            elements = elements
-        },
-        function(data, menu) --Submit Cb
-            local val = data.current.value
-            if val == 'open_all' or val == 'close_all' then
-                Cells.OpenClose(val)
-                menu.close()
-                CurrentAction     = 'cells_menu'
-                CurrentActionMsg  = _U('cells_menu')
-                CurrentActionData = {}
-            else
-                local elements2 = {}
-
-                for i=1, 7, 1 do
-                    table.insert(elements2, 
-                    {
-                        label = _U('cell') .. ' ' .. i,
-                        value = val .. '_cell_' .. i,
-                    })
-                end
-
-                ESX.UI.Menu.Open(
-                    'default', GetCurrentResourceName(), 'cells2',
-                    {
-                        title = _U(val),
-                        align = 'top-left',
-                        elements = elements2
-                    },
-                    function(data2, menu2) --Submit Cb
-                        Cells.OpenClose(data2.current.value)
-                    end,
-                    function(data, menu) --Cancel Cb
-                        menu.close()
-                    end
-                )
-            end
-        end,
-        function(data, menu) --Cancel Cb
-            menu.close()
-            CurrentAction     = 'cells_menu'
-            CurrentActionMsg  = _U('cells_menu')
-            CurrentActionData = {}
+        for k,v in pairs(cells) do
+            table.insert(_cells,
+                id = k,
+                state = v
+            )
         end
-    )
+
+        SendNUIMessage({
+            type = 'showMenu',
+            data = _cells,
+        })
+
+        SetNuiFocus(true, true)
+
+    end)
 end
 
-Cells.OpenClose = function(cell)
+function OpenCloseCell(cell)
     if cell == 'open_all' or cell =='close_all' then
 
         local angle = 180.0
@@ -108,6 +68,14 @@ Cells.OpenClose = function(cell)
         TriggerServerEvent("esx_jail:dispatchCell", angle, cell_door)        
     end
 end
+
+RegisterNUICallback('select', function(data, cb)
+    OpenCloseCell(data)
+end)
+
+RegisterNUICallback('close', function(data, cb)
+    SetNuiFocus(false)
+end)
 
 RegisterNetEvent('esx_jail:dispatchCells')
 AddEventHandler('esx_jail:dispatchCells', function(angle, cells)
