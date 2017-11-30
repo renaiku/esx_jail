@@ -9,7 +9,8 @@ server_scripts {
   '@es_extended/locale.lua',
   'locales/fr.lua',
   'config.lua',
-  'server/main.lua'
+  'server/main.lua',  
+  'modules/cells/server.lua'
 }
 
 client_scripts {
@@ -17,10 +18,9 @@ client_scripts {
   '@es_extended/locale.lua',
   'locales/fr.lua',
   'config.lua',
-  'client/cells.lua',
+  'modules/cells/client.lua',
   'client/main.lua'
 }
-
 
 ui_page {
   'ui/index.html'

@@ -1,7 +1,5 @@
 ﻿$(function(){
 
-
-
 	/*var cellID = 1
 	var floorID
 	for (var i = 0; i < floorCount; i++) {
@@ -50,7 +48,7 @@
 		if (event.data.type == "showMenu"){
 			var data = event.data.data
 			populate(data);
-			SetTimeout(function(){
+			setTimeout(function(){
 				$('.cells').fadeIn();
 			}, 200)
 		}
@@ -64,11 +62,6 @@
 		}
 	})
 
-
-
-
-
-
 });
 
 function populate(data){
@@ -76,13 +69,13 @@ function populate(data){
 	var floorCount = 2;
 	var cellCountPerFloor = 7;
 
-	var cellID = 0
+	var cellID = 1
 	var floorID = 1
 
 	for (var i = 0; i < floorCount; i++) {
 		$('.cells .columns').append('<div class="cell-column" id="floor-'+floorID+'"></div>')
 
-		for (var i = 0; i < cellCountPerFloor; i++) {
+		for (var k = 0; k < cellCountPerFloor; k++) {
 
 			var thing = data[cellID].state
 			var text = "Open";
@@ -100,12 +93,8 @@ function populate(data){
 
 		}
 
+		cellID = 1
 		floorID++;
 	}
 
-
 }
-
-
-
-

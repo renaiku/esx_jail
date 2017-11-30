@@ -1,20 +1,21 @@
+Config.Modules.Cells = {}
 
-function ShowMenuOpenCloseCells()
+Config.Modules.Cells.ShowMenuOpenClose = function()
 
     ESX.TriggerServerCallback("esx_jail:getCellsState", function(cells)
 
         local _cells = {}
 
         for k,v in pairs(cells) do
-            table.insert(_cells,
+            table.insert(_cells, {
                 id = k,
                 state = v
-            )
+            })
         end
 
         SendNUIMessage({
             type = 'showMenu',
-            data = _cells,
+            data = _cells
         })
 
         SetNuiFocus(true, true)
@@ -22,7 +23,7 @@ function ShowMenuOpenCloseCells()
     end)
 end
 
-function OpenCloseCell(cell)
+Config.Modules.Cells.OpenCloseCell = function(cell)
     if cell == 'open_all' or cell =='close_all' then
 
         local angle = 180.0
@@ -70,10 +71,13 @@ function OpenCloseCell(cell)
 end
 
 RegisterNUICallback('select', function(data, cb)
-    OpenCloseCell(data)
+
+    print("select UI")
+    Config.Modules.Cells.OpenCloseCell(data)
 end)
 
 RegisterNUICallback('close', function(data, cb)
+    print("closing UI")
     SetNuiFocus(false)
 end)
 

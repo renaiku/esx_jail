@@ -6,6 +6,8 @@ Config.Locale                     = 'fr'
 local second = 1000
 local minute = 60 * second
 
+Config.Modules = {}
+
 Config.Cells = {
 	floor1_cell_1 = { -- OK
 		x = 1743.947265625,

@@ -139,7 +139,7 @@ Citizen.CreateThread(function()
             if IsControlJustReleased(0, Keys['E']) then
 
                 if CurrentAction == 'cells_menu' then
-                    ShowMenuOpenClose()
+                    Config.Modules.Cells.ShowMenuOpenClose()
                 end
 
                 if CurrentAction == 'shower' then
