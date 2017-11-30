@@ -73,7 +73,7 @@ function populate(data){
 	var floorID = 1
 
 
-	data = data.sort(function(a, b){
+	data.sort(function(a, b){
 		return a.pos-b.pos
 	});
 
