@@ -23,7 +23,7 @@
 	}*/
 
 
-	$('.cell').click(function(){
+	$('.cells').on('click', '.cell', function(){
 
 		var id = $(this).attr('id');
 		if ($(this).hasClass('open')){
@@ -71,6 +71,12 @@ function populate(data){
 	var cellID = 0
 	var cellNumber = 1
 	var floorID = 1
+
+
+	data = data.sort(function(a, b){
+		return a.pos-b.pos
+	});
+
 
 	for (var i = 0; i < floorCount; i++) {
 		$('.cells .columns').append('<div class="cell-column" id="floor-'+floorID+'"></div>')
