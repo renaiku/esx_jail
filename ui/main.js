@@ -38,8 +38,7 @@
 			$(this).find('span:first').html('Open')
 		}
 
-		$.post('http://esx_jail/select', id);
-		print(id);
+		$.post('http://esx_jail/select', JSON.stringify({id}));
 
 	});
 
@@ -69,12 +68,13 @@ function populate(data){
 	var floorCount = 2;
 	var cellCountPerFloor = 7;
 
-	var cellID = 1
+	var cellID = 0
+	var cellNumber = 1
 	var floorID = 1
 
 	for (var i = 0; i < floorCount; i++) {
 		$('.cells .columns').append('<div class="cell-column" id="floor-'+floorID+'"></div>')
-
+		cellNumber = 1;
 		for (var k = 0; k < cellCountPerFloor; k++) {
 
 			var thing = data[cellID].state
@@ -86,14 +86,13 @@ function populate(data){
 			}
 			$('#floor-'+floorID).append(
 				'<div class="cell '+css+'" id="'+data[cellID].id+'"> \
-					<p>Cell '+cellID+'</p>				\
+					<p>Cell '+cellNumber+'</p>				\
 					<span>'+text+'</span> \
 				</div>')
 			cellID++;
-
+			cellNumber++;
 		}
 
-		cellID = 1
 		floorID++;
 	}
 
