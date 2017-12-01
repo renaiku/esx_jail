@@ -23,7 +23,7 @@ Config.Modules.Cells.ShowMenuOpenClose = function()
     end)
 end
 
-Config.Modules.Cells.OpenCloseCell = function(cell)
+Config.Modules.Cells.OpenClose = function(cell)
     if cell == 'open_all' or cell =='close_all' then
 
         local angle = 180.0
@@ -71,9 +71,8 @@ Config.Modules.Cells.OpenCloseCell = function(cell)
 end
 
 RegisterNUICallback('select', function(data, cb)
-
-    print("select UI")
-    Config.Modules.Cells.OpenCloseCell(data)
+    print("select UI " .. json.ecode(data.))
+    Config.Modules.Cells.OpenClose(data.id)
 end)
 
 RegisterNUICallback('close', function(data, cb)
@@ -92,3 +91,6 @@ RegisterNetEvent('esx_jail:dispatchCell')
 AddEventHandler('esx_jail:dispatchCell', function(angle, cell)
     SetEntityRotation(cell, 0.0, 0.0, angle, 1, true)
 end)
+
+
+print("LOADED")

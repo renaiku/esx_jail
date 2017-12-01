@@ -72,11 +72,15 @@ function populate(data){
 	var cellNumber = 1
 	var floorID = 1
 
-
-	data.sort(function(a, b){
-		return a.pos-b.pos
+	data.sort(function(a, b) {
+		var idA = a.id;
+		var idB = b.id;
+		if (idA < idB)
+	        return -1 
+	    if (idA > idB)
+	        return 1
+	    return 0
 	});
-
 
 	for (var i = 0; i < floorCount; i++) {
 		$('.cells .columns').append('<div class="cell-column" id="floor-'+floorID+'"></div>')
