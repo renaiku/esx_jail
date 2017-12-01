@@ -71,7 +71,7 @@ Config.Modules.Cells.OpenClose = function(cell)
 end
 
 RegisterNUICallback('select', function(data, cb)
-    print("select UI " .. json.ecode(data.))
+    print("select UI " .. json.ecode(data))
     Config.Modules.Cells.OpenClose(data.id)
 end)
 
